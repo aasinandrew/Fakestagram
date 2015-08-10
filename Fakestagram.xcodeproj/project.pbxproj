@@ -15,6 +15,22 @@
 		BB20AE071B794F0500077605 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB20AE061B794F0500077605 /* Images.xcassets */; };
 		BB20AE0A1B794F0500077605 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB20AE081B794F0500077605 /* LaunchScreen.xib */; };
 		BB20AE161B794F0500077605 /* FakestagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB20AE151B794F0500077605 /* FakestagramTests.m */; };
+		BB20AE231B79535E00077605 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE221B79535E00077605 /* CloudKit.framework */; };
+		BB20AE251B79547300077605 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE241B79547300077605 /* Bolts.framework */; };
+		BB20AE271B79557A00077605 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE261B79557A00077605 /* ParseCrashReporting.framework */; };
+		BB20AE291B79559A00077605 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE281B79559A00077605 /* Parse.framework */; };
+		BB20AE2B1B7955B700077605 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE2A1B7955B700077605 /* ParseUI.framework */; };
+		BB20AE2D1B79560500077605 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE2C1B79560500077605 /* AudioToolbox.framework */; };
+		BB20AE2F1B79561000077605 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE2E1B79561000077605 /* CFNetwork.framework */; };
+		BB20AE311B79561800077605 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE301B79561800077605 /* CoreGraphics.framework */; };
+		BB20AE331B79562000077605 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE321B79562000077605 /* QuartzCore.framework */; };
+		BB20AE351B79562600077605 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE341B79562600077605 /* Security.framework */; };
+		BB20AE371B79562C00077605 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE361B79562C00077605 /* StoreKit.framework */; };
+		BB20AE391B79563400077605 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE381B79563400077605 /* SystemConfiguration.framework */; };
+		BB20AE3B1B79563C00077605 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE3A1B79563C00077605 /* libz.dylib */; };
+		BB20AE3D1B79564900077605 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE3C1B79564900077605 /* libsqlite3.dylib */; };
+		BB20AE3F1B79566500077605 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE3E1B79566500077605 /* Accounts.framework */; };
+		BB20AE411B79566B00077605 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20AE401B79566B00077605 /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +58,23 @@
 		BB20AE0F1B794F0500077605 /* FakestagramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FakestagramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB20AE141B794F0500077605 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB20AE151B794F0500077605 /* FakestagramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FakestagramTests.m; sourceTree = "<group>"; };
+		BB20AE1F1B794F1400077605 /* Fakestagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Fakestagram.entitlements; sourceTree = "<group>"; };
+		BB20AE221B79535E00077605 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		BB20AE241B79547300077605 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		BB20AE261B79557A00077605 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		BB20AE281B79559A00077605 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		BB20AE2A1B7955B700077605 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		BB20AE2C1B79560500077605 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		BB20AE2E1B79561000077605 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		BB20AE301B79561800077605 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BB20AE321B79562000077605 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BB20AE341B79562600077605 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BB20AE361B79562C00077605 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BB20AE381B79563400077605 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BB20AE3A1B79563C00077605 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		BB20AE3C1B79564900077605 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		BB20AE3E1B79566500077605 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		BB20AE401B79566B00077605 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +82,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB20AE411B79566B00077605 /* Social.framework in Frameworks */,
+				BB20AE3F1B79566500077605 /* Accounts.framework in Frameworks */,
+				BB20AE3D1B79564900077605 /* libsqlite3.dylib in Frameworks */,
+				BB20AE3B1B79563C00077605 /* libz.dylib in Frameworks */,
+				BB20AE391B79563400077605 /* SystemConfiguration.framework in Frameworks */,
+				BB20AE371B79562C00077605 /* StoreKit.framework in Frameworks */,
+				BB20AE351B79562600077605 /* Security.framework in Frameworks */,
+				BB20AE331B79562000077605 /* QuartzCore.framework in Frameworks */,
+				BB20AE311B79561800077605 /* CoreGraphics.framework in Frameworks */,
+				BB20AE2F1B79561000077605 /* CFNetwork.framework in Frameworks */,
+				BB20AE2D1B79560500077605 /* AudioToolbox.framework in Frameworks */,
+				BB20AE231B79535E00077605 /* CloudKit.framework in Frameworks */,
+				BB20AE271B79557A00077605 /* ParseCrashReporting.framework in Frameworks */,
+				BB20AE2B1B7955B700077605 /* ParseUI.framework in Frameworks */,
+				BB20AE291B79559A00077605 /* Parse.framework in Frameworks */,
+				BB20AE251B79547300077605 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +114,22 @@
 		BB20ADEA1B794F0500077605 = {
 			isa = PBXGroup;
 			children = (
+				BB20AE401B79566B00077605 /* Social.framework */,
+				BB20AE3E1B79566500077605 /* Accounts.framework */,
+				BB20AE3C1B79564900077605 /* libsqlite3.dylib */,
+				BB20AE3A1B79563C00077605 /* libz.dylib */,
+				BB20AE381B79563400077605 /* SystemConfiguration.framework */,
+				BB20AE361B79562C00077605 /* StoreKit.framework */,
+				BB20AE341B79562600077605 /* Security.framework */,
+				BB20AE321B79562000077605 /* QuartzCore.framework */,
+				BB20AE301B79561800077605 /* CoreGraphics.framework */,
+				BB20AE2E1B79561000077605 /* CFNetwork.framework */,
+				BB20AE2C1B79560500077605 /* AudioToolbox.framework */,
+				BB20AE2A1B7955B700077605 /* ParseUI.framework */,
+				BB20AE281B79559A00077605 /* Parse.framework */,
+				BB20AE241B79547300077605 /* Bolts.framework */,
+				BB20AE261B79557A00077605 /* ParseCrashReporting.framework */,
+				BB20AE221B79535E00077605 /* CloudKit.framework */,
 				BB20ADF51B794F0500077605 /* Fakestagram */,
 				BB20AE121B794F0500077605 /* FakestagramTests */,
 				BB20ADF41B794F0500077605 /* Products */,
@@ -83,6 +148,7 @@
 		BB20ADF51B794F0500077605 /* Fakestagram */ = {
 			isa = PBXGroup;
 			children = (
+				BB20AE1F1B794F1400077605 /* Fakestagram.entitlements */,
 				BB20ADFA1B794F0500077605 /* AppDelegate.h */,
 				BB20ADFB1B794F0500077605 /* AppDelegate.m */,
 				BB20AE001B794F0500077605 /* ViewController.h */,
@@ -171,6 +237,12 @@
 				TargetAttributes = {
 					BB20ADF21B794F0500077605 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = S7DUM68KVK;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					BB20AE0E1B794F0500077605 = {
 						CreatedOnToolsVersion = 6.4;
@@ -351,9 +423,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Fakestagram/Fakestagram.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Fakestagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -361,9 +441,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Fakestagram/Fakestagram.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Fakestagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -420,6 +508,7 @@
 				BB20AE1B1B794F0500077605 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB20AE1C1B794F0500077605 /* Build configuration list for PBXNativeTarget "FakestagramTests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +517,7 @@
 				BB20AE1E1B794F0500077605 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
