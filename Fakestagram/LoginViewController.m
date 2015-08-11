@@ -64,4 +64,9 @@
     [user signUpInBackground];
 }
 
+-(IBAction)unWindToLogin:(UIStoryboardSegue *)segue {
+    // Logout user
+    
+}
+
 @end

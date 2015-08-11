@@ -10,6 +10,11 @@
 		14211D7F1B79615000FA4740 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14211D7E1B79615000FA4740 /* HomeViewController.m */; };
 		14211D821B79615F00FA4740 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14211D811B79615F00FA4740 /* SearchViewController.m */; };
 		14211D851B79616800FA4740 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14211D841B79616800FA4740 /* ProfileViewController.m */; };
+		14A36C2F1B7A94FE00B461F0 /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C2E1B7A94FE00B461F0 /* HomeCollectionViewCell.m */; };
+		14A36C321B7A976000B461F0 /* OtherUsersCommentsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C311B7A976000B461F0 /* OtherUsersCommentsTVC.m */; };
+		14A36C391B7A991400B461F0 /* OtherPeoplesProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C381B7A991400B461F0 /* OtherPeoplesProfileViewController.m */; };
+		14A36C3C1B7A9E0400B461F0 /* YourCommentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C3B1B7A9E0400B461F0 /* YourCommentsTableViewController.m */; };
+		14A36C3F1B7AA6C500B461F0 /* ImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C3E1B7AA6C500B461F0 /* ImagePost.m */; };
 		BB20ADF91B794F0500077605 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB20ADF81B794F0500077605 /* main.m */; };
 		BB20ADFC1B794F0500077605 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB20ADFB1B794F0500077605 /* AppDelegate.m */; };
 		BB20ADFF1B794F0500077605 /* Fakestagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB20ADFD1B794F0500077605 /* Fakestagram.xcdatamodeld */; };
@@ -53,6 +58,16 @@
 		14211D811B79615F00FA4740 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		14211D831B79616800FA4740 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		14211D841B79616800FA4740 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		14A36C2D1B7A94FE00B461F0 /* HomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCollectionViewCell.h; sourceTree = "<group>"; };
+		14A36C2E1B7A94FE00B461F0 /* HomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewCell.m; sourceTree = "<group>"; };
+		14A36C301B7A976000B461F0 /* OtherUsersCommentsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherUsersCommentsTVC.h; sourceTree = "<group>"; };
+		14A36C311B7A976000B461F0 /* OtherUsersCommentsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUsersCommentsTVC.m; sourceTree = "<group>"; };
+		14A36C371B7A991400B461F0 /* OtherPeoplesProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherPeoplesProfileViewController.h; sourceTree = "<group>"; };
+		14A36C381B7A991400B461F0 /* OtherPeoplesProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherPeoplesProfileViewController.m; sourceTree = "<group>"; };
+		14A36C3A1B7A9E0400B461F0 /* YourCommentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YourCommentsTableViewController.h; sourceTree = "<group>"; };
+		14A36C3B1B7A9E0400B461F0 /* YourCommentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourCommentsTableViewController.m; sourceTree = "<group>"; };
+		14A36C3D1B7AA6C500B461F0 /* ImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePost.h; sourceTree = "<group>"; };
+		14A36C3E1B7AA6C500B461F0 /* ImagePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePost.m; sourceTree = "<group>"; };
 		BB20ADF31B794F0500077605 /* Fakestagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fakestagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB20ADF71B794F0500077605 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB20ADF81B794F0500077605 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -154,8 +169,32 @@
 				14211D811B79615F00FA4740 /* SearchViewController.m */,
 				14211D7D1B79615000FA4740 /* HomeViewController.h */,
 				14211D7E1B79615000FA4740 /* HomeViewController.m */,
+				14A36C301B7A976000B461F0 /* OtherUsersCommentsTVC.h */,
+				14A36C311B7A976000B461F0 /* OtherUsersCommentsTVC.m */,
+				14A36C371B7A991400B461F0 /* OtherPeoplesProfileViewController.h */,
+				14A36C381B7A991400B461F0 /* OtherPeoplesProfileViewController.m */,
+				14A36C3A1B7A9E0400B461F0 /* YourCommentsTableViewController.h */,
+				14A36C3B1B7A9E0400B461F0 /* YourCommentsTableViewController.m */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		14A36C331B7A977000B461F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14A36C2D1B7A94FE00B461F0 /* HomeCollectionViewCell.h */,
+				14A36C2E1B7A94FE00B461F0 /* HomeCollectionViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		14A36C401B7AA6CC00B461F0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				14A36C3D1B7AA6C500B461F0 /* ImagePost.h */,
+				14A36C3E1B7AA6C500B461F0 /* ImagePost.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		BB20ADEA1B794F0500077605 = {
@@ -183,7 +222,9 @@
 				BB20ADFA1B794F0500077605 /* AppDelegate.h */,
 				BB20ADFB1B794F0500077605 /* AppDelegate.m */,
 				14211D861B79619D00FA4740 /* ViewControllers */,
+				14A36C331B7A977000B461F0 /* View */,
 				BB20AE031B794F0500077605 /* Main.storyboard */,
+				14A36C401B7AA6CC00B461F0 /* Model */,
 				BB20AE061B794F0500077605 /* Images.xcassets */,
 				BB20AE081B794F0500077605 /* LaunchScreen.xib */,
 				BB20AE1F1B794F1400077605 /* Fakestagram.entitlements */,
@@ -326,8 +367,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB20ADFF1B794F0500077605 /* Fakestagram.xcdatamodeld in Sources */,
+				14A36C321B7A976000B461F0 /* OtherUsersCommentsTVC.m in Sources */,
+				14A36C391B7A991400B461F0 /* OtherPeoplesProfileViewController.m in Sources */,
+				14A36C3C1B7A9E0400B461F0 /* YourCommentsTableViewController.m in Sources */,
 				BB20ADFC1B794F0500077605 /* AppDelegate.m in Sources */,
 				BB20AE021B794F0500077605 /* LoginViewController.m in Sources */,
+				14A36C2F1B7A94FE00B461F0 /* HomeCollectionViewCell.m in Sources */,
+				14A36C3F1B7AA6C500B461F0 /* ImagePost.m in Sources */,
 				14211D7F1B79615000FA4740 /* HomeViewController.m in Sources */,
 				14211D851B79616800FA4740 /* ProfileViewController.m in Sources */,
 				14211D821B79615F00FA4740 /* SearchViewController.m in Sources */,

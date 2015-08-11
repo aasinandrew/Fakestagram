@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import "ImagePost.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +29,8 @@
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
+
+    [ImagePost registerSubclass];
 
     return YES;
 }
