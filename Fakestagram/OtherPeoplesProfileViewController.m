@@ -7,9 +7,10 @@
 //
 
 #import "OtherPeoplesProfileViewController.h"
+#import "HomeCollectionViewCell.h"
 
-@interface OtherPeoplesProfileViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@interface OtherPeoplesProfileViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+
 
 @end
 
@@ -17,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Set Navbar title to User Name
 }
 
 
@@ -28,6 +29,14 @@
 - (IBAction)favoriteButtonPressed:(UIButton *)sender {
 
     //change this to custom
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 1;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return 0;
 }
 
 @end

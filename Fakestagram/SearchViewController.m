@@ -100,9 +100,11 @@
     if (!self.searchIsHappening) {
         PFUser *user = self.users[indexPath.row];
         cell.textLabel.text = user.username;
+        [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size: 18]];
     } else {
         PFUser *userFiltered = self.filteredResults[indexPath.row];
         cell.textLabel.text = userFiltered.username;
+        [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size: 18]];
     }
 
     return cell;

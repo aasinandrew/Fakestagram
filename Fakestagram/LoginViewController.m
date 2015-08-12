@@ -8,14 +8,19 @@
 
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *signupButton;
 
 @end
 
 @implementation LoginViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,6 +29,8 @@
     if ([user isAuthenticated]) {
         [self performSegueWithIdentifier:@"login" sender:self];
     }
+
+    [self buttonSetup];
 
 }
 
@@ -34,6 +41,14 @@
         [self performSegueWithIdentifier:@"login" sender:self];
     }
 
+}
+
+- (void)buttonSetup {
+    self.loginButton.layer.borderWidth = 1.0;
+    self.loginButton.layer.borderColor = [UIColor whiteColor].CGColor;
+
+    self.signupButton.layer.borderWidth = 1.0;
+    self.signupButton.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
 - (IBAction)loginButtonPressed:(UIButton *)sender {
