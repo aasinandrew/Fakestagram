@@ -39,8 +39,17 @@
 - (IBAction)loginButtonPressed:(UIButton *)sender {
 
     //PFUser *user = [PFUser currentUser];
-    [PFUser logInWithUsernameInBackground:self.userNameTextField.text password:self.passwordTextField.text];
-    [self performSegueWithIdentifier:@"login" sender:self];
+
+    [PFUser logInWithUsernameInBackground:self.userNameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
+
+        if (user != nil) {
+            [self performSegueWithIdentifier:@"login" sender:self];
+        } else {
+            // Someone does AlertController like ray
+
+        }
+    }];
+
 
 
 //    PFUser.logInWithUsernameInBackground(userTextField.text, password: passwordTextField.text) { user, error in
@@ -65,8 +74,10 @@
 }
 
 -(IBAction)unWindToLogin:(UIStoryboardSegue *)segue {
-    // Logout user
-    
+    [PFUser logOut];
+
+    self.userNameTextField.text = @"";
+    self.passwordTextField.text = @"";
 }
 
 @end

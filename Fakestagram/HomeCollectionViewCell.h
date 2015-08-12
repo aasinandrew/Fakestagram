@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *imagePost;
+@property (weak, nonatomic) IBOutlet UIButton *commentButton;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIButton *userNameLabel;
 
 @end
