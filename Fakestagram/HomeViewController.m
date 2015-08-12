@@ -14,7 +14,7 @@
 @interface HomeViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *feedCollectionView;
 
-
+@property NSMutableArray *userNames;
 @property NSMutableArray *feed;
 @property int tracker;
 
@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.feed = [NSMutableArray new];
+    self.userNames = [NSMutableArray new];
     self.tracker = 0;
 
 
@@ -71,21 +72,14 @@
             [queryPhoto whereKey:@"poster" equalTo:followedUser];
             [queryPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (objects.count != 0) {
-
                     for (ImagePost *imagePost in objects) {
-                        PFFile *photoFile = imagePost.photoFile;
-                        [photoFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                            self.tracker++;
+                        self.tracker++;
+                        [self.feed addObject:imagePost];
 
-                            if (error == nil) {
-                                UIImage *image = [UIImage imageWithData:data];
-                                [self.feed addObject:image];
-                            }
-                            if (self.tracker == objects.count) {
+                        if (self.tracker == objects.count) {
                                 [self.feedCollectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
                                 self.tracker = 0;
-                            }
-                        }];
+                        }
                     }
                 }
 
@@ -95,6 +89,17 @@
 
 }
 
+-(void)getPictureFromImagePost:(ImagePost *)imagePost withCompletion:(void(^)(UIImage *image))complete {
+    PFFile *photoFile = imagePost.photoFile;
+    [photoFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+
+        if (error == nil) {
+            UIImage *image = [UIImage imageWithData:data];
+            complete(image);
+        }
+    }];
+
+}
 - (IBAction)uploadButtonPressed:(UIBarButtonItem *)sender {
 
 
@@ -171,13 +176,26 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HomeCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"feedCell" forIndexPath:indexPath];
 
-    cell.imagePost.image = self.feed[indexPath.item];
+    ImagePost *imagePost = self.feed[indexPath.item];
+    PFUser *poster = [imagePost objectForKey:@"poster"];
+
+    [cell.userNameLabel setTitle:poster.username forState:UIControlStateNormal];
+
+    [self getPictureFromImagePost:imagePost withCompletion:^(UIImage *image) {
+        cell.imagePost.image = image;
+
+    }];
+
 //    cell.userNameLabel.text 
     return cell;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.feed.count;
+}
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(self.view.frame.size.width, self.view.frame.size.width);
 }
 
 
