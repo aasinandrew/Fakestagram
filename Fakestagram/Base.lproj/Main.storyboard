@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -285,9 +286,6 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ch3-Yb-3av">
-                                                    <rect key="frame" x="-1" y="34" width="322" height="322"/>
-                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMg-2f-g7a">
                                                     <rect key="frame" x="14" y="3" width="73" height="30"/>
                                                     <state key="normal" title="UserName">
@@ -311,19 +309,25 @@
                                                         <segue destination="v2f-19-m0e" kind="push" identifier="homeToCommentsDetail" id="dPS-bm-D6y"/>
                                                     </connections>
                                                 </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ch3-Yb-3av">
+                                                    <rect key="frame" x="58" y="83" width="204" height="204"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="ch3-Yb-3av" secondAttribute="height" multiplier="1:1" id="5Sk-iK-UHE"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstAttribute="centerY" secondItem="ch3-Yb-3av" secondAttribute="centerY" constant="47.5" id="8SS-ao-Bjb"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="ch3-Yb-3av" secondAttribute="trailing" constant="50" id="8co-KC-FjZ"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="rvm-sQ-Q3l" secondAttribute="bottom" constant="47" id="Cu5-BM-Kyt"/>
                                             <constraint firstItem="Khg-Hq-Z9O" firstAttribute="leading" secondItem="wdD-wv-lW8" secondAttribute="leadingMargin" constant="6" id="MBr-gs-1ni"/>
-                                            <constraint firstItem="ch3-Yb-3av" firstAttribute="centerX" secondItem="wdD-wv-lW8" secondAttribute="centerX" id="TNY-Ig-CVZ"/>
-                                            <constraint firstItem="Khg-Hq-Z9O" firstAttribute="top" secondItem="ch3-Yb-3av" secondAttribute="bottom" constant="8" id="YzJ-W8-67E"/>
                                             <constraint firstItem="TMg-2f-g7a" firstAttribute="leading" secondItem="wdD-wv-lW8" secondAttribute="leadingMargin" constant="6" id="ZyB-xE-arc"/>
                                             <constraint firstItem="TMg-2f-g7a" firstAttribute="top" secondItem="wdD-wv-lW8" secondAttribute="topMargin" constant="-5" id="cJB-PL-vTo"/>
-                                            <constraint firstItem="ch3-Yb-3av" firstAttribute="top" secondItem="TMg-2f-g7a" secondAttribute="bottom" constant="1" id="i1R-ok-Kcl"/>
+                                            <constraint firstAttribute="centerX" secondItem="ch3-Yb-3av" secondAttribute="centerX" id="dsV-6d-1Ys"/>
+                                            <constraint firstItem="ch3-Yb-3av" firstAttribute="leading" secondItem="wdD-wv-lW8" secondAttribute="leadingMargin" constant="50" id="grk-G6-CR0"/>
                                             <constraint firstItem="rvm-sQ-Q3l" firstAttribute="leading" secondItem="Khg-Hq-Z9O" secondAttribute="trailing" constant="11" id="q9e-zy-ZeS"/>
-                                            <constraint firstItem="ch3-Yb-3av" firstAttribute="leading" secondItem="wdD-wv-lW8" secondAttribute="leadingMargin" constant="-9" id="qxz-Wn-HuK"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="Khg-Hq-Z9O" secondAttribute="bottom" constant="43" id="vud-UN-TYI"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="465"/>
@@ -403,7 +407,7 @@
             <objects>
                 <tabBarController id="5m1-Ak-mpw" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Rve-cJ-4zK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

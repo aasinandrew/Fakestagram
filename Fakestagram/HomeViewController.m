@@ -165,12 +165,12 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+    UIImage *croppedImage = [self imageByCroppingImage:image];
     ImagePost *imagePost = [ImagePost object];
     
-    NSData *photoData = UIImageJPEGRepresentation(image, 1.0);
-    
-    //change the photo to square
-    
+    NSData *photoData = UIImageJPEGRepresentation(croppedImage, 1.0);
+
     PFFile *tempFile = [PFFile fileWithData:photoData];
     
     imagePost.photoFile = tempFile;
@@ -196,6 +196,33 @@
     
     //save to parse & segue
     
+}
+
+- (UIImage *)imageByCroppingImage:(UIImage *)image {
+    // not equivalent to image.size (which depends on the imageOrientation)!
+    double refWidth = CGImageGetWidth(image.CGImage);
+    double refHeight = CGImageGetHeight(image.CGImage);
+
+    CGFloat originOfImage = i
+
+//    double x = (refWidth - size.width) / 2.0;
+//    double y = (refHeight - size.height) / 2.0;
+
+    double x;
+
+    if (refWidth >= refHeight) {
+        x = refHeight/2.0;
+    } else {
+        x = refWidth/2.0;
+    }
+
+    CGRect cropRect = CGRectMake(image., x, refHeight, refWidth);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef scale:0.0 orientation:image.imageOrientation];
+    CGImageRelease(imageRef);
+
+    return cropped;
 }
 
 #pragma mark - Collection View Delegates
