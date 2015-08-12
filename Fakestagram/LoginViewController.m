@@ -11,37 +11,44 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface LoginViewController ()
+
+
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *signupButton;
 
+
 @end
+
 
 @implementation LoginViewController
 
 
+#pragma mark - VC and LifeCycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    PFUser *user = [PFUser currentUser];
-    if ([user isAuthenticated]) {
-        [self performSegueWithIdentifier:@"login" sender:self];
-    }
-
+    [self authenticateUser];
     [self buttonSetup];
 
 }
 
+
 -(void)viewDidAppear:(BOOL)animated {
 
+    [self authenticateUser];
+}
+
+
+-(void)authenticateUser {
     PFUser *user = [PFUser currentUser];
     if ([user isAuthenticated]) {
         [self performSegueWithIdentifier:@"login" sender:self];
     }
-
 }
+
 
 - (void)buttonSetup {
     self.loginButton.layer.borderWidth = 1.0;
@@ -51,29 +58,36 @@
     self.signupButton.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
-- (IBAction)loginButtonPressed:(UIButton *)sender {
 
-    //PFUser *user = [PFUser currentUser];
+#pragma mark - Helper Method 
+
+-(void)showErrorMessage:(NSError *) error {
+    
+    NSString *errorMessage = error.userInfo[@"error"];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login Failed" message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    
+    [alert addAction:action];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
+#pragma mark - Button methods 
+
+- (IBAction)loginButtonPressed:(UIButton *)sender {
 
     [PFUser logInWithUsernameInBackground:self.userNameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
 
         if (user != nil) {
             [self performSegueWithIdentifier:@"login" sender:self];
         } else {
-            // Someone does AlertController like ray
+            [self showErrorMessage:error];
 
         }
     }];
-
-
-
-//    PFUser.logInWithUsernameInBackground(userTextField.text, password: passwordTextField.text) { user, error in
-//        if user != nil {
-//            self.performSegueWithIdentifier(self.tableViewWallSegue, sender: nil)
-//        } else if let error = error {
-//            self.showErrorView(error)
-//        }
-//    }
 
 }
 
@@ -88,11 +102,15 @@
     [user signUpInBackground];
 }
 
+
+#pragma mark - Segue 
+
 -(IBAction)unWindToLogin:(UIStoryboardSegue *)segue {
     [PFUser logOut];
 
     self.userNameTextField.text = @"";
     self.passwordTextField.text = @"";
 }
+
 
 @end

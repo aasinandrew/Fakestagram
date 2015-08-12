@@ -16,11 +16,17 @@
 
 @implementation OtherPeoplesProfileViewController
 
+#pragma mark - VC and life-cycle 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Set Navbar title to User Name
 }
 
+
+
+#pragma mark - Button methods 
 
 - (IBAction)followButtonPressed:(UIButton *)sender {
 }
@@ -31,9 +37,13 @@
     //change this to custom
 }
 
+#pragma mark - Collection View Delegate Methods 
+
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return 1;
 }
+
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     return 0;

@@ -11,25 +11,35 @@
 
 @interface SearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
+
 @property (weak, nonatomic) IBOutlet UITableView *searchTableView;
 @property UISearchController *searchController;
 @property (nonatomic) NSArray *filteredResults;
 @property NSMutableArray *users;
 @property BOOL searchIsHappening; 
 
+
 @end
+
 
 @implementation SearchViewController
 
+
+#pragma mark - VC and Life-cycle 
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     [self searchControllerSetUp];
-    self.users = [NSMutableArray new];
     [self loadUsers];
-
+    
 }
 
+
 -(void)loadUsers {
+    
+    self.users = [NSMutableArray new];
+    
     PFQuery *query = [PFUser query];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
@@ -39,7 +49,9 @@
 
         }
     }];
+    
 }
+
 
 #pragma mark - Search Bar 
 
@@ -56,6 +68,7 @@
     self.definesPresentationContext = YES;
 }
 
+
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     if (searchController.active) {
         self.searchIsHappening = YES;
@@ -66,10 +79,12 @@
     [self updateFilteredContentForFriendsName:searchString];
 }
 
+
 -(void)updateFilteredContentForFriendsName:(NSString *)searchString {
 
     self.filteredResults = [self.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"username contains[c] %@", searchString]];
 }
+
 
 - (void)setFilteredResults:(NSArray *)filteredResults {
 
@@ -77,10 +92,12 @@
     [self.searchTableView reloadData];
 }
 
+
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.searchIsHappening = NO;
 
 }
+
 
 #pragma mark - TableView Delegates
 
@@ -93,6 +110,7 @@
     }
 
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];

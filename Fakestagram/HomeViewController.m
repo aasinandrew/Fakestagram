@@ -13,24 +13,25 @@
 #import "OtherUsersCommentsTVC.h"
 
 @interface HomeViewController ()
+
+
 @property (weak, nonatomic) IBOutlet UICollectionView *feedCollectionView;
 
-@property NSMutableArray *userNames;
+@property NSArray *feedSorted;
 @property NSMutableArray *feed;
 @property int tracker;
 
+
 @end
+
 
 @implementation HomeViewController
 
+#pragma mark - VC and life-cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.feed = [NSMutableArray new];
-    self.userNames = [NSMutableArray new];
-    self.tracker = 0;
-
-
+    [self viewSetUp];
 
 //    PFUser *user = [PFUser currentUser];
 //
@@ -54,10 +55,18 @@
 
 }
 
+
 -(void)viewWillAppear:(BOOL)animated {
     [self resetFeed];
 
 }
+
+-(void)viewSetUp {
+    
+    self.feed = [NSMutableArray new];
+    self.tracker = 0;
+}
+
 
 -(void)resetFeed {
     [self.feed removeAllObjects];
@@ -66,7 +75,10 @@
     PFRelation *following = [user relationForKey:@"following"];
     PFQuery *query = [following query];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-
+        
+        
+        //Do something if objects.count == 0?
+        
         for (PFUser *followedUser in objects) {
 
             PFQuery *queryPhoto = [PFQuery queryWithClassName:@"ImagePost"];
@@ -78,8 +90,16 @@
                         [self.feed addObject:imagePost];
 
                         if (self.tracker == objects.count) {
-                                [self.feedCollectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                                self.tracker = 0;
+                            
+                            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+            
+                            
+                            NSArray *sortArray = [self.feed sortedArrayUsingDescriptors:@[sortDescriptor]];
+                            self.feedSorted = [NSArray arrayWithArray:sortArray];
+                            
+                            
+                            [self.feedCollectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                            self.tracker = 0;
                         }
                     }
                 }
@@ -90,17 +110,8 @@
 
 }
 
--(void)getPictureFromImagePost:(ImagePost *)imagePost withCompletion:(void(^)(UIImage *image))complete {
-    PFFile *photoFile = imagePost.photoFile;
-    [photoFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+#pragma mark - Button method
 
-        if (error == nil) {
-            UIImage *image = [UIImage imageWithData:data];
-            complete(image);
-        }
-    }];
-
-}
 - (IBAction)uploadButtonPressed:(UIBarButtonItem *)sender {
 
 
@@ -133,51 +144,66 @@
 
         [self presentViewController:cameraAlert animated:YES completion:nil];
 
-    }
+}
+
+
+#pragma mark - Helper Method
+
+-(void)getPictureFromImagePost:(ImagePost *)imagePost withCompletion:(void(^)(UIImage *image))complete {
+    PFFile *photoFile = imagePost.photoFile;
+    [photoFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        
+        if (error == nil) {
+            UIImage *image = [UIImage imageWithData:data];
+            complete(image);
+        }
+    }];
+    
+}
+
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     ImagePost *imagePost = [ImagePost object];
-
+    
     NSData *photoData = UIImageJPEGRepresentation(image, 1.0);
-
+    
     //change the photo to square
-
+    
     PFFile *tempFile = [PFFile fileWithData:photoData];
-
+    
     imagePost.photoFile = tempFile;
-
+    
     [tempFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
         if (succeeded) {
-
+            
             [self dismissViewControllerAnimated:YES completion:nil];
             [self performSegueWithIdentifier:@"UploadPictureToProfile" sender:self];
-
-            [imagePost setObject:[PFUser currentUser] forKey:@"poster"];
-
-
-            [imagePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-
-                if (succeeded) {
             
+            [imagePost setObject:[PFUser currentUser] forKey:@"poster"];
+            
+            
+            [imagePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                
+                if (succeeded) {
+                    
                 }
             }];
         }
-
+        
     }];
-
+    
     //save to parse & segue
-
+    
 }
-
 
 #pragma mark - Collection View Delegates
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HomeCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"feedCell" forIndexPath:indexPath];
 
-    ImagePost *imagePost = self.feed[indexPath.item];
+    ImagePost *imagePost = self.feedSorted[indexPath.item];
     PFUser *poster = [imagePost objectForKey:@"poster"];
 
     [cell.userNameLabel setTitle:poster.username forState:UIControlStateNormal];
@@ -189,15 +215,18 @@
     return cell;
 }
 
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.feed.count;
+    return self.feedSorted.count;
 }
+
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(self.view.frame.size.width, self.view.frame.size.width);
 }
 
 #pragma mark - segue 
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"homeToCommentsDetail"]) {
         OtherUsersCommentsTVC *tVC = segue.destinationViewController;
