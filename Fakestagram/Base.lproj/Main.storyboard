@@ -301,7 +301,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ttv-Sf-QSA">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OtherUserCommentsCell" id="ttv-Sf-QSA">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ttv-Sf-QSA" id="CVR-em-51J">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -527,7 +527,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="iwy-Lq-d6g"/>
-        <segue reference="yjM-0X-M93"/>
         <segue reference="dPS-bm-D6y"/>
+        <segue reference="czk-gB-Asc"/>
     </inferredMetricsTieBreakers>
 </document>

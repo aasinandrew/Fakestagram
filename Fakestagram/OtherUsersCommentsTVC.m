@@ -7,8 +7,11 @@
 //
 
 #import "OtherUsersCommentsTVC.h"
+#import <Parse/Parse.h>
+#import "ImagePost.h"
 
 @interface OtherUsersCommentsTVC ()
+@property NSMutableArray *comments;
 
 @end
 
@@ -16,44 +19,55 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self loadComments];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)loadComments {
+    self.comments = [self.iP objectForKey:@"comments"] ?: [NSMutableArray new];
+    [self.tableView reloadData];
 }
+
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-- (IBAction)addCommentButtonPressed:(UIBarButtonItem *)sender {
+    return self.comments.count;
 }
 
-/*
+- (IBAction)addCommentButtonPressed:(UIBarButtonItem *)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Add a Comment" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Comment";
+    }];
+
+    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+
+        UITextField *commentTextField = [alert textFields].firstObject;
+        [self.comments addObject:commentTextField.text];
+        [self.iP setObject:self.comments forKey:@"comments"];
+        [self.iP saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self loadComments];
+            }
+        }];
+
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+
+    }];
+
+    [alert addAction:addAction];
+    [alert addAction:cancelAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtherUserCommentsCell" forIndexPath:indexPath];
+    cell.textLabel.text = self.comments[indexPath.row];
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

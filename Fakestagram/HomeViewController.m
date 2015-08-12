@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "ImagePost.h"
 #import "HomeCollectionViewCell.h"
+#import "OtherUsersCommentsTVC.h"
 
 @interface HomeViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *feedCollectionView;
@@ -59,7 +60,7 @@
 }
 
 -(void)resetFeed {
-
+    [self.feed removeAllObjects];
     PFUser *user = [PFUser currentUser];
 
     PFRelation *following = [user relationForKey:@"following"];
@@ -185,8 +186,6 @@
         cell.imagePost.image = image;
 
     }];
-
-//    cell.userNameLabel.text 
     return cell;
 }
 
@@ -198,6 +197,15 @@
     return CGSizeMake(self.view.frame.size.width, self.view.frame.size.width);
 }
 
-
+#pragma mark - segue 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"homeToCommentsDetail"]) {
+        OtherUsersCommentsTVC *tVC = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.feedCollectionView indexPathForCell:(UICollectionViewCell *)[[sender superview] superview]];
+        ImagePost *imagePost = self.feed[indexPath.item];
+        tVC.iP = imagePost;
+    }
+    
+}
 
 @end
