@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@import Parse;
+
+
 @interface OtherPeoplesProfileViewController : UIViewController
+
+@property PFUser *user;
+
+
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeCollectionViewCell.h"
 
-@interface HomeViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface HomeViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HomeCollectionViewCellDelegate>
 
 @end

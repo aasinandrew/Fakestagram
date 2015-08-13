@@ -8,11 +8,11 @@
 
 #import "SearchViewController.h"
 #import <Parse/Parse.h>
+#import "OtherPeoplesProfileViewController.h"
 
-@interface SearchViewController () <UISearchResultsUpdating, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SearchViewController () <UISearchResultsUpdating, UISearchBarDelegate>
 
 
-@property (weak, nonatomic) IBOutlet UITableView *searchTableView;
 @property UISearchController *searchController;
 @property (nonatomic) NSArray *filteredResults;
 @property NSMutableArray *users;
@@ -30,22 +30,64 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+//     [self addObserver:self forKeyPath:@"users" options:NSKeyValueObservingOptionNew context:NULL];
     [self searchControllerSetUp];
-    [self loadUsers];
+//   [self loadUsers];
+
     
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
+     [self loadUsers];
+    //[self addObserver:self forKeyPath:@"users" options:NSKeyValueObservingOptionNew context:NULL];
+
+
+
+}
+//
+//
+//-(void)viewDidDisappear:(BOOL)animated {
+//
+//    [super viewDidDisappear:animated];
+//    [self removeObserver:self forKeyPath:@"users"];
+//
+//}
+
+//-(void)dealloc {
+//
+//    [self removeObserver:self forKeyPath:@"users"];
+//}
+
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"users"]) {
+        [self.tableView reloadData];
+    }
+}
 
 -(void)loadUsers {
     
     self.users = [NSMutableArray new];
     
     PFQuery *query = [PFUser query];
+
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
+        int tracker = 0;
         for (PFUser *user in objects) {
-            [self.users addObject:user];
-            [self.searchTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            tracker++;
+            if (user != [PFUser currentUser]) {
+
+                [self.users addObject:user];
+
+            }
+
+            if (tracker == objects.count) {
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+
+            }
 
         }
     }];
@@ -60,12 +102,14 @@
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
 
-    self.searchTableView.tableHeaderView = self.searchController.searchBar;
+    self.tableView.tableHeaderView = self.searchController.searchBar;
     [self.searchController.searchBar sizeToFit];
 
     self.searchController.dimsBackgroundDuringPresentation = YES;
     self.searchController.searchBar.delegate = self;
     self.definesPresentationContext = YES;
+
+    [self.tableView setNeedsLayout];
 }
 
 
@@ -89,7 +133,7 @@
 - (void)setFilteredResults:(NSArray *)filteredResults {
 
     _filteredResults = filteredResults;
-    [self.searchTableView reloadData];
+    [self.tableView reloadData];
 }
 
 
@@ -126,6 +170,20 @@
     }
 
     return cell;
+}
+
+#pragma mark - Segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender  {
+
+    OtherPeoplesProfileViewController *vc = segue.destinationViewController;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+
+    if (self.searchIsHappening) {
+        vc.user = self.filteredResults[indexPath.row];
+    }else {
+        vc.user = self.users[indexPath.row];
+    }
 }
 
 

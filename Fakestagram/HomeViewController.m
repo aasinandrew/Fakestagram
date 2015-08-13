@@ -9,8 +9,8 @@
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
 #import "ImagePost.h"
-#import "HomeCollectionViewCell.h"
 #import "OtherUsersCommentsTVC.h"
+#import "OtherPeoplesProfileViewController.h"
 
 @interface HomeViewController ()
 
@@ -33,26 +33,6 @@
     [super viewDidLoad];
     [self viewSetUp];
 
-//    PFUser *user = [PFUser currentUser];
-//
-//    PFQuery *queryOne = [PFUser query];
-//
-//    [queryOne findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//
-//        if (!error) {
-//
-//
-//            PFUser *testUser = objects[5];
-//
-//            PFRelation *relation = [user relationForKey:@"following"];
-//            [relation addObject:testUser];
-//
-//
-//            [user saveInBackground];
-//        }
-//
-//    }];
-
 }
 
 
@@ -74,6 +54,7 @@
 
     PFRelation *following = [user relationForKey:@"following"];
     PFQuery *query = [following query];
+
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         
@@ -83,6 +64,7 @@
 
             PFQuery *queryPhoto = [PFQuery queryWithClassName:@"ImagePost"];
             [queryPhoto whereKey:@"poster" equalTo:followedUser];
+            [queryPhoto includeKey:@"poster"];
             [queryPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (objects.count != 0) {
                     for (ImagePost *imagePost in objects) {
@@ -203,20 +185,38 @@
     double refWidth = CGImageGetWidth(image.CGImage);
     double refHeight = CGImageGetHeight(image.CGImage);
 
-    CGFloat originOfImage = i
+   // double x = (refWidth - size.width) / 2.0;
+   // double y = (refHeight - size.height) / 2.0;
 
-//    double x = (refWidth - size.width) / 2.0;
-//    double y = (refHeight - size.height) / 2.0;
 
-    double x;
+//    CGRect cropRect;
+//
+//    if (refWidth >= refHeight) {
+//        x = refHeight/2.0;
+//        cropRect = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y - 200, refHeight, refHeight);
+//    } else {
+//        x = refWidth/2.0;
+//        cropRect = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y - 200, refWidth, refWidth);
+//    }
 
-    if (refWidth >= refHeight) {
-        x = refHeight/2.0;
+    CGSize centerSquareSize;
+
+    if (refWidth > refHeight) {
+        centerSquareSize.width = refHeight;
+        centerSquareSize.height = refHeight;
+    } else if (refWidth < refHeight) {
+        centerSquareSize.width = refWidth;
+        centerSquareSize.height = refWidth;
+
     } else {
-        x = refWidth/2.0;
+        return image;
     }
 
-    CGRect cropRect = CGRectMake(image., x, refHeight, refWidth);
+    double x = (refWidth - centerSquareSize.width) / 2.0;
+    double y = (refHeight - centerSquareSize.height) / 2.0;
+
+    CGRect cropRect = CGRectMake(x, y, centerSquareSize.height, centerSquareSize.width);
+
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
 
     UIImage *cropped = [UIImage imageWithCGImage:imageRef scale:0.0 orientation:image.imageOrientation];
@@ -225,13 +225,52 @@
     return cropped;
 }
 
-#pragma mark - Collection View Delegates
+
+#pragma mark - HomeCollectionViewCell Delegate
+
+-(UIImage *)homeCollectionViewCell:(HomeCollectionViewCell *)HomeCollectionViewCell {
+
+    NSIndexPath *indexPath = [self.feedCollectionView indexPathForCell:HomeCollectionViewCell];
+    ImagePost *imagePost = self.feedSorted[indexPath.item];
+
+    NSMutableArray *usersWhoLiked = [imagePost objectForKey:@"usersWhoLiked"] ?: [NSMutableArray new];
+
+    if ([usersWhoLiked containsObject:[PFUser currentUser]]) {
+        [usersWhoLiked removeObject:[PFUser currentUser]];
+        [imagePost setObject:usersWhoLiked forKey:@"usersWhoLiked"];
+        [imagePost saveInBackground];
+
+        return [UIImage imageNamed:@"star"];
+
+    } else {
+
+        [usersWhoLiked addObject:[PFUser currentUser]];
+        [imagePost setObject:usersWhoLiked forKey:@"usersWhoLiked"];
+        [imagePost saveInBackground];
+
+        return [UIImage imageNamed:@"star-filled"];
+    }
+}
+
+
+#pragma mark - CollectionView Delegates
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HomeCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"feedCell" forIndexPath:indexPath];
+    cell.delegate = self;
 
     ImagePost *imagePost = self.feedSorted[indexPath.item];
     PFUser *poster = [imagePost objectForKey:@"poster"];
+
+    NSMutableArray * usersWhoLiked = [imagePost objectForKey:@"usersWhoLiked"] ?: [NSMutableArray new];
+
+    if ([usersWhoLiked containsObject:[PFUser currentUser]]) {
+        [cell.likeButton setImage:[UIImage imageNamed:@"star-filled"] forState:UIControlStateNormal];
+
+    } else {
+
+        [cell.likeButton setImage:[UIImage imageNamed:@"star"] forState:UIControlStateNormal];
+    }
 
     [cell.userNameLabel setTitle:poster.username forState:UIControlStateNormal];
 
@@ -258,8 +297,17 @@
     if ([segue.identifier isEqualToString:@"homeToCommentsDetail"]) {
         OtherUsersCommentsTVC *tVC = segue.destinationViewController;
         NSIndexPath *indexPath = [self.feedCollectionView indexPathForCell:(UICollectionViewCell *)[[sender superview] superview]];
-        ImagePost *imagePost = self.feed[indexPath.item];
+        ImagePost *imagePost = self.feedSorted[indexPath.item];
         tVC.iP = imagePost;
+    } else if ([segue.identifier isEqualToString:@"homeToOPPVC"]) {
+
+        OtherPeoplesProfileViewController *vc = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.feedCollectionView indexPathForCell:(UICollectionViewCell *)[[sender superview] superview]];
+        ImagePost *imagePost = self.feedSorted[indexPath.item];
+
+        vc.user = [imagePost objectForKey:@"poster"];
+
+
     }
     
 }
