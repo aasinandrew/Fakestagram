@@ -19,7 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *userNameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
+
 
 @end
 
@@ -29,6 +30,6 @@
 
 -(UIImage *)homeCollectionViewCell:(HomeCollectionViewCell *)HomeCollectionViewCell;
 
--(void)deleteButtonPressedOnHomeCellCollectionViewCell:(HomeCollectionViewCell *)homeCollectionViewCell;
+-(void)homeCollectionViewCellMoreButtonPressed:(HomeCollectionViewCell *)homeCollectionViewCell;
 
 @end

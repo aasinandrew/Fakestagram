@@ -101,13 +101,15 @@
 
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
-
+    self.tableView.contentInset = UIEdgeInsetsMake(44.0, 0, 0, 0);
     self.tableView.tableHeaderView = self.searchController.searchBar;
     [self.searchController.searchBar sizeToFit];
 
     self.searchController.dimsBackgroundDuringPresentation = YES;
     self.searchController.searchBar.delegate = self;
     self.definesPresentationContext = YES;
+
+ 
 
     [self.tableView setNeedsLayout];
 }

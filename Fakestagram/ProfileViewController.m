@@ -88,18 +88,36 @@
 #pragma mark - CollectionView Cell Delegate 
 
 
--(void)deleteButtonPressedOnHomeCellCollectionViewCell:(HomeCollectionViewCell *)homeCollectionViewCell {
+-(void)homeCollectionViewCellMoreButtonPressed:(HomeCollectionViewCell *)homeCollectionViewCell {
 
-    NSIndexPath *indexPath = [self.profileCollectionView indexPathForCell:homeCollectionViewCell];
-
-    ImagePost *imagePost = self.photos[indexPath.item];
-   // PFUser *user = [PFUser currentUser];
-
-    [imagePost deleteInBackground];
-
-
-    [self.photos removeObjectAtIndex:indexPath.item];
-    [self.profileCollectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"More" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        NSIndexPath *indexPath = [self.profileCollectionView indexPathForCell:homeCollectionViewCell];
+        
+        ImagePost *imagePost = self.photos[indexPath.item];
+        // PFUser *user = [PFUser currentUser];
+        
+        [imagePost deleteInBackground];
+        
+        
+        [self.photos removeObjectAtIndex:indexPath.item];
+        [self.profileCollectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+    }];
+    
+   
+   // UIAlertAction *detail = [[UIAlertAction actionWithTitle:@"" style:<#(UIAlertActionStyle)#> handler:<#^(UIAlertAction *action)handler#>];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    
+    [alertController addAction:delete];
+    [alertController addAction:cancel];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+   
 
 
 

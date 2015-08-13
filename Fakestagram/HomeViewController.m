@@ -176,9 +176,8 @@
         
     }];
     
-    //save to parse & segue
-    
 }
+
 
 - (UIImage *)imageByCroppingImage:(UIImage *)image {
     // not equivalent to image.size (which depends on the imageOrientation)!
