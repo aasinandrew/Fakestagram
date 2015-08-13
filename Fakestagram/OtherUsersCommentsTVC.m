@@ -51,9 +51,9 @@
         [self.iP setObject:self.comments forKey:@"comments"];
         [self.iP saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                
-                //Let's fix this so we only add comments here (ie. beginUpdates, insertTableRow, now reload tableView)
-                [self loadComments];
+
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.comments.count-1 inSection:0];
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
             }
         }];
         
@@ -81,17 +81,5 @@
     cell.textLabel.text = self.comments[indexPath.row];
     return cell;
 }
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

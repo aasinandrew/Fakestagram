@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "YourCommentsTableViewController.h"
 #import <Parse/Parse.h>
 #import "ImagePost.h"
 
@@ -102,6 +103,16 @@
 
 
 
+}
+
+#pragma mark - segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"yourProfileToYourComments"]) {
+        YourCommentsTableViewController *vc = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.profileCollectionView indexPathForCell:(UICollectionViewCell *)[[sender superview]superview]];
+        ImagePost *imagePost = self.photos[indexPath.row];
+        vc.imagePost = imagePost;
+    }
 }
 
 

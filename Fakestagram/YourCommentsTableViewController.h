@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class ImagePost;
 @interface YourCommentsTableViewController : UITableViewController
+@property ImagePost *imagePost;
 
 @end
