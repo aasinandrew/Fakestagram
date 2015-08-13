@@ -134,7 +134,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="YourProfileCell" id="1Ac-Kr-UmB">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="YourProfileCell" id="1Ac-Kr-UmB" customClass="HomeCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -142,18 +142,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DHv-Ry-BSa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                                                    <rect key="frame" x="58" y="126" width="204" height="204"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="320" id="I6K-s7-L45"/>
-                                                        <constraint firstAttribute="height" constant="320" id="xxU-cr-wLd"/>
+                                                        <constraint firstAttribute="width" secondItem="DHv-Ry-BSa" secondAttribute="height" multiplier="1:1" id="aiO-WN-jWl"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-Xm-seq">
-                                                    <rect key="frame" x="8" y="330" width="43" height="43"/>
+                                                    <rect key="frame" x="8" y="330" width="34" height="34"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="43" id="3Ld-bs-gQ7"/>
-                                                        <constraint firstAttribute="width" constant="43" id="uJa-5x-5c4"/>
+                                                        <constraint firstAttribute="height" constant="34" id="3Ld-bs-gQ7"/>
+                                                        <constraint firstAttribute="width" constant="34" id="uJa-5x-5c4"/>
                                                     </constraints>
                                                     <state key="normal" image="topic">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -162,19 +161,40 @@
                                                         <segue destination="APa-m8-sfY" kind="push" identifier="yourProfileToYourComments" id="JSZ-e1-0FZ"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3OQ-lO-2e0">
+                                                    <rect key="frame" x="80" y="336" width="44" height="30"/>
+                                                    <state key="normal" title="Delete">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteButtonPressed:" destination="1Ac-Kr-UmB" eventType="touchUpInside" id="jk8-94-JpC"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="DHv-Ry-BSa" firstAttribute="leading" secondItem="1Ac-Kr-UmB" secondAttribute="leading" id="BUV-VQ-nMP"/>
-                                            <constraint firstAttribute="trailing" secondItem="DHv-Ry-BSa" secondAttribute="trailing" id="Oaf-7e-1Cd"/>
-                                            <constraint firstItem="uN0-Xm-seq" firstAttribute="top" secondItem="DHv-Ry-BSa" secondAttribute="bottom" constant="10" id="Psk-rf-wKk"/>
+                                            <constraint firstItem="DHv-Ry-BSa" firstAttribute="leading" secondItem="1Ac-Kr-UmB" secondAttribute="leadingMargin" constant="50" id="DYb-d6-V0M"/>
+                                            <constraint firstItem="3OQ-lO-2e0" firstAttribute="top" secondItem="DHv-Ry-BSa" secondAttribute="bottom" constant="6" id="E0v-1j-Ws3"/>
+                                            <constraint firstAttribute="centerX" secondItem="DHv-Ry-BSa" secondAttribute="centerX" id="Tu2-o6-AL4"/>
                                             <constraint firstItem="uN0-Xm-seq" firstAttribute="leading" secondItem="1Ac-Kr-UmB" secondAttribute="leadingMargin" id="VQb-mQ-Rbk"/>
-                                            <constraint firstItem="DHv-Ry-BSa" firstAttribute="top" secondItem="1Ac-Kr-UmB" secondAttribute="top" id="vEh-Vm-DES"/>
+                                            <constraint firstItem="uN0-Xm-seq" firstAttribute="top" secondItem="DHv-Ry-BSa" secondAttribute="bottom" id="auS-Bc-QeU"/>
+                                            <constraint firstItem="3OQ-lO-2e0" firstAttribute="leading" secondItem="uN0-Xm-seq" secondAttribute="trailing" constant="38" id="qCJ-xv-CM2"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="DHv-Ry-BSa" secondAttribute="trailing" constant="50" id="tT4-RR-xDv"/>
+                                            <constraint firstAttribute="centerY" secondItem="DHv-Ry-BSa" secondAttribute="centerY" id="whG-Ev-ifS"/>
                                         </constraints>
                                         <size key="customSize" width="320" height="456"/>
+                                        <connections>
+                                            <outlet property="commentButton" destination="uN0-Xm-seq" id="1uQ-98-46b"/>
+                                            <outlet property="deleteButton" destination="3OQ-lO-2e0" id="6fA-Du-G0N"/>
+                                            <outlet property="imagePost" destination="DHv-Ry-BSa" id="7Vx-gW-dXa"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="OTS-Ia-9Mv" id="Pph-vB-4Yv"/>
+                                    <outlet property="delegate" destination="OTS-Ia-9Mv" id="Lqr-Mj-L2o"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,6 +212,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="profileCollectionView" destination="d34-we-EKI" id="fiG-2z-MUi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qB-k7-bNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eIs-Yg-FEm" userLabel="Exit" sceneMemberID="exit"/>
@@ -662,8 +685,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="czk-gB-Asc"/>
         <segue reference="iwy-Lq-d6g"/>
-        <segue reference="kVy-yb-uWh"/>
         <segue reference="rYU-mu-gpp"/>
     </inferredMetricsTieBreakers>
 </document>

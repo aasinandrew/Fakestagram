@@ -16,4 +16,8 @@
     [sender setImage:image forState:UIControlStateNormal];
 }
 
+-(IBAction)deleteButtonPressed:(UIButton *)sender {
+    [self.delegate deleteButtonPressedOnHomeCellCollectionViewCell:self];
+}
+
 @end
