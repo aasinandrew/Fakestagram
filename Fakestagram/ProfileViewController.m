@@ -15,6 +15,7 @@
 @interface ProfileViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *profileCollectionView;
 @property NSMutableArray *photos;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 
 @end
 
@@ -29,6 +30,7 @@
 
     [super viewWillAppear:animated];
     [self loadPosts];
+    [self loadProfileImage];
 }
 
 -(void)loadPosts {
@@ -46,6 +48,29 @@
         [self.profileCollectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
     }];
 }
+
+-(void)loadProfileImage {
+
+    PFUser *currentUser = [PFUser currentUser];
+    if ([currentUser objectForKey:@"profilePhoto"]) {
+
+        PFFile *photoFile = [currentUser objectForKey:@"profilePhoto"];
+        [photoFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+
+            if (error == nil) {
+                UIImage *image = [UIImage imageWithData:data];
+                self.profileImage.image = image;
+            }
+        }];
+        
+    } else {
+
+        self.profileImage.image = [UIImage imageNamed:@"seahorse.png"];
+        
+    }
+    
+}
+
 
 #pragma mark - Helper Method
 
@@ -81,6 +106,17 @@
         cell.imagePost.image = image;
     }];
 
+    NSString *hashtag = [imagePost objectForKey:@"hashtag"];
+    if (hashtag) {
+
+        if ([hashtag hasPrefix:@"#"] || [hashtag isEqualToString:@""] ) {
+            cell.hashtag.text = hashtag;
+        } else {
+            cell.hashtag.text = [NSString stringWithFormat:@"#%@", hashtag];
+        }
+    } else {
+        cell.hashtag.text = @"";
+    }
     return cell;
 }
 
@@ -133,6 +169,102 @@
     }
 }
 
+- (IBAction)editButtonPressed:(UIButton *)sender {
+
+    UIAlertController *cameraAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *photoLibrary = [UIAlertAction actionWithTitle:@"Choose a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+
+        UIImagePickerController *imagePicker = [UIImagePickerController new];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+
+    UIAlertAction *camera = [UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+
+        UIImagePickerController *imagePicker = [UIImagePickerController new];
+        imagePicker.delegate = self;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+
+    }];
+
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+
+    }];
+
+    [cameraAlert addAction:photoLibrary];
+    [cameraAlert addAction:camera];
+    [cameraAlert addAction:cancel];
+
+    [self presentViewController:cameraAlert animated:YES completion:nil];
+
+
+}
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+    UIImage *croppedImage = [self imageByCroppingImage:image];
+    PFUser *currentUser = [PFUser currentUser];
+
+    NSData *photoData = UIImageJPEGRepresentation(croppedImage, 1.0);
+
+    PFFile *tempFile = [PFFile fileWithData:photoData];
+
+    [currentUser setObject:tempFile forKey:@"profilePhoto"];
+    [tempFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+        if (succeeded) {
+
+            [self dismissViewControllerAnimated:YES completion:nil];
+            self.profileImage.image = croppedImage;
+
+            [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+
+                if (succeeded) {
+
+                }
+            }];
+        }
+
+    }];
+
+}
+
+
+- (UIImage *)imageByCroppingImage:(UIImage *)image {
+
+    double refWidth = CGImageGetWidth(image.CGImage);
+    double refHeight = CGImageGetHeight(image.CGImage);
+
+    CGSize centerSquareSize;
+
+    if (refWidth > refHeight) {
+        centerSquareSize.width = refHeight;
+        centerSquareSize.height = refHeight;
+    } else if (refWidth < refHeight) {
+        centerSquareSize.width = refWidth;
+        centerSquareSize.height = refWidth;
+
+    } else {
+        return image;
+    }
+
+    double x = (refWidth - centerSquareSize.width) / 2.0;
+    double y = (refHeight - centerSquareSize.height) / 2.0;
+
+    CGRect cropRect = CGRectMake(x, y, centerSquareSize.height, centerSquareSize.width);
+
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef scale:0.0 orientation:image.imageOrientation];
+    CGImageRelease(imageRef);
+    
+    return cropped;
+}
 
 @end
 

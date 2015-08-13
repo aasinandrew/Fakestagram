@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
+@property (weak, nonatomic) IBOutlet UILabel *hashtag;
+@property (weak, nonatomic) IBOutlet UILabel *labelForUserName;
 
 
 @end

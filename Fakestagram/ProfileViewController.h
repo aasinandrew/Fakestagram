@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "HomeCollectionViewCell.h"
 
-@interface ProfileViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, HomeCollectionViewCellDelegate>
+@interface ProfileViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, HomeCollectionViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end

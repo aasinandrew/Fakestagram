@@ -9,6 +9,8 @@
 #import "SearchViewController.h"
 #import <Parse/Parse.h>
 #import "OtherPeoplesProfileViewController.h"
+#import "ImagePost.h"
+#import "HashtagDetailViewController.h"
 
 @interface SearchViewController () <UISearchResultsUpdating, UISearchBarDelegate>
 
@@ -16,7 +18,10 @@
 @property UISearchController *searchController;
 @property (nonatomic) NSArray *filteredResults;
 @property NSMutableArray *users;
-@property BOOL searchIsHappening; 
+@property BOOL searchIsHappening;
+@property NSArray *allImagePosts;
+@property (nonatomic) NSArray *filteredImagePosts;
+@property BOOL isSearchingHashtag;
 
 
 @end
@@ -41,6 +46,7 @@
 
     [super viewDidAppear:animated];
      [self loadUsers];
+    [self loadHashtags];
     //[self addObserver:self forKeyPath:@"users" options:NSKeyValueObservingOptionNew context:NULL];
 
 
@@ -93,7 +99,17 @@
     }];
     
 }
+-(void)loadHashtags {
 
+
+    PFQuery *query = [PFQuery queryWithClassName:@"ImagePost"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+
+        self.allImagePosts = objects;
+    }];
+
+    self.isSearchingHashtag = NO;
+}
 
 #pragma mark - Search Bar 
 
@@ -101,11 +117,12 @@
 
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
-    self.tableView.contentInset = UIEdgeInsetsMake(44.0, 0, 0, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.searchController.searchBar.scopeButtonTitles = @[@"Users", @"Hashtag"];
     [self.searchController.searchBar sizeToFit];
 
-    self.searchController.dimsBackgroundDuringPresentation = YES;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
     self.definesPresentationContext = YES;
 
@@ -118,17 +135,28 @@
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     if (searchController.active) {
         self.searchIsHappening = YES;
+    } else {
+        self.searchIsHappening = NO;
     }
+
+
 
     NSString *searchString = [self.searchController.searchBar text];
 
-    [self updateFilteredContentForFriendsName:searchString];
+    [self updateFilteredContentForFriendsName:searchString scope:searchController.searchBar.selectedScopeButtonIndex];
 }
 
 
--(void)updateFilteredContentForFriendsName:(NSString *)searchString {
+-(void)updateFilteredContentForFriendsName:(NSString *)searchString scope:(NSInteger)scope {
 
-    self.filteredResults = [self.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"username contains[c] %@", searchString]];
+    if (scope == 0) {
+        self.filteredResults = [self.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"username contains[c] %@", searchString]];
+        self.isSearchingHashtag = NO;
+    } else {
+        self.filteredImagePosts = [self.allImagePosts filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hashtag contains[c] %@", searchString]];
+        self.isSearchingHashtag = YES;
+    }
+
 }
 
 
@@ -138,12 +166,25 @@
     [self.tableView reloadData];
 }
 
+-(void)setFilteredImagePosts:(NSArray *)filteredImagePosts {
+    _filteredImagePosts = filteredImagePosts;
+    [self.tableView reloadData];
+}
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.searchIsHappening = NO;
 
 }
 
+-(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    [self updateSearchResultsForSearchController:self.searchController];
+}
+
+
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    //we can now click on the cell!!
+}
 
 #pragma mark - TableView Delegates
 
@@ -151,8 +192,10 @@
 
     if (!self.searchIsHappening) {
         return self.users.count;
-    } else {
+    } else if (self.searchIsHappening && !self.isSearchingHashtag){
         return self.filteredResults.count;
+    } else {
+        return self.filteredImagePosts.count;
     }
 
 }
@@ -165,27 +208,62 @@
         PFUser *user = self.users[indexPath.row];
         cell.textLabel.text = user.username;
         [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size: 18]];
-    } else {
+    } else if (self.searchIsHappening && !self.isSearchingHashtag) {
         PFUser *userFiltered = self.filteredResults[indexPath.row];
         cell.textLabel.text = userFiltered.username;
+        [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size: 18]];
+    } else {
+        ImagePost *post = self.filteredImagePosts[indexPath.row];
+        NSString *hashtag = [post objectForKey:@"hashtag"];
+
+        if ([hashtag hasPrefix:@"#"] || [hashtag isEqualToString:@""] ) {
+                cell.textLabel.text = hashtag;
+        } else {
+                cell.textLabel.text = [NSString stringWithFormat:@"#%@", hashtag];
+        }
+
         [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size: 18]];
     }
 
     return cell;
 }
 
+
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    CGRect searchBarFrame = self.searchController.searchBar.frame;
+    [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
+    return NSNotFound;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isSearchingHashtag) {
+        [self performSegueWithIdentifier:@"searchToHashtagVC" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    } else {
+        [self performSegueWithIdentifier:@"searchToOPPVC" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    }
+}
+
+
 #pragma mark - Segue
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender  {
+    if ([segue.identifier isEqualToString: @"searchToOPPVC"]) {
+        OtherPeoplesProfileViewController *vc = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
 
-    OtherPeoplesProfileViewController *vc = segue.destinationViewController;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        if (self.searchIsHappening) {
+            vc.user = self.filteredResults[indexPath.row];
+        }else {
+            vc.user = self.users[indexPath.row];
+        }
+    } else {
+        HashtagDetailViewController *vc2 = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        ImagePost *imagePost = self.filteredImagePosts[indexPath.row];
+        vc2.hashtag = [imagePost objectForKey:@"hashtag"];
 
-    if (self.searchIsHappening) {
-        vc.user = self.filteredResults[indexPath.row];
-    }else {
-        vc.user = self.users[indexPath.row];
     }
+
 }
 
 

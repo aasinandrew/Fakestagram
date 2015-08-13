@@ -17,6 +17,7 @@
 @property NSArray *photos;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property BOOL isFollowed;
+@property (weak, nonatomic) IBOutlet UIImageView *otherProfileImage;
 
 
 
@@ -30,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadUser];
+    [self loadProfileImage];
 
 
 }
@@ -65,6 +67,28 @@
         }
 
     }];
+}
+
+-(void)loadProfileImage {
+
+    if ([self.user objectForKey:@"profilePhoto"]) {
+
+        PFFile *photoFile = [self.user objectForKey:@"profilePhoto"];
+        [photoFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+
+            if (error == nil) {
+                UIImage *image = [UIImage imageWithData:data];
+                self.otherProfileImage.image = image;
+            }
+        }];
+
+    } else {
+
+        self.otherProfileImage.image = [UIImage imageNamed:@"seahorse.png"];
+        
+    }
+
+    
 }
 
 
@@ -143,6 +167,17 @@
         
     }];
 
+    NSString *hashtag = [imagePost objectForKey:@"hashtag"];
+    if (hashtag) {
+
+        if ([hashtag hasPrefix:@"#"] || [hashtag isEqualToString:@""] ) {
+            cell.hashtag.text = hashtag;
+        } else {
+            cell.hashtag.text = [NSString stringWithFormat:@"#%@", hashtag];
+        }
+    } else {
+        cell.hashtag.text = @"";
+    }
     return cell;
 }
 

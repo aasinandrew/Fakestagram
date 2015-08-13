@@ -161,42 +161,43 @@
         if (succeeded) {
             
             [self dismissViewControllerAnimated:YES completion:nil];
-            [self performSegueWithIdentifier:@"UploadPictureToProfile" sender:self];
-            
-            [imagePost setObject:[PFUser currentUser] forKey:@"poster"];
-            
-            
-            [imagePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-                
-                if (succeeded) {
-                    
-                }
+
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Add a Hashtag" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                textField.placeholder = @"Hashtag";
             }];
+
+            UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+
+                UITextField *hashtagTextField = [alert textFields].firstObject;
+                NSString *hashtagText = [hashtagTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+                [imagePost setObject:hashtagText forKey:@"hashtag"];
+
+                [self performSegueWithIdentifier:@"UploadPictureToProfile" sender:self];
+
+                [imagePost setObject:[PFUser currentUser] forKey:@"poster"];
+
+
+                [imagePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+
+                    if (succeeded) {
+
+                    }
+                }];
+            }];
+
+            [alert addAction:addAction];
+            [self presentViewController:alert animated:YES completion:nil];
         }
-        
     }];
     
 }
 
 
 - (UIImage *)imageByCroppingImage:(UIImage *)image {
-    // not equivalent to image.size (which depends on the imageOrientation)!
+
     double refWidth = CGImageGetWidth(image.CGImage);
     double refHeight = CGImageGetHeight(image.CGImage);
-
-   // double x = (refWidth - size.width) / 2.0;
-   // double y = (refHeight - size.height) / 2.0;
-
-
-//    CGRect cropRect;
-//
-//    if (refWidth >= refHeight) {
-//        x = refHeight/2.0;
-//        cropRect = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y - 200, refHeight, refHeight);
-//    } else {
-//        x = refWidth/2.0;
-//        cropRect = CGRectMake(self.view.frame.origin.x + 50, self.view.frame.origin.y - 200, refWidth, refWidth);
-//    }
 
     CGSize centerSquareSize;
 
@@ -277,6 +278,19 @@
         cell.imagePost.image = image;
 
     }];
+
+    NSString *hashtag = [imagePost objectForKey:@"hashtag"];
+    if (hashtag) {
+
+        if ([hashtag hasPrefix:@"#"] || [hashtag isEqualToString:@""] ) {
+            cell.hashtag.text = hashtag;
+        } else {
+            cell.hashtag.text = [NSString stringWithFormat:@"#%@", hashtag];
+        }
+    } else {
+        cell.hashtag.text = @"";
+    }
+
     return cell;
 }
 
