@@ -121,6 +121,7 @@
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.searchBar.scopeButtonTitles = @[@"Users", @"Hashtag"];
+    [self.searchController.searchBar setTintColor:[UIColor colorWithRed:223.0/255.0 green:82.0/255.0 blue:85.0/255.0 alpha:1.0]];
  
 
     self.searchController.dimsBackgroundDuringPresentation = NO;

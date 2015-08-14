@@ -51,6 +51,14 @@
     PFUser *user = [imagePost objectForKey:@"poster"];
     cell.labelForUserName.text = user.username;
     cell.hashtag.text = [imagePost objectForKey:@"hashtag"];
+
+    [cell.imagePost.layer setBorderColor: [[UIColor blackColor] CGColor]];
+    [cell.imagePost.layer setBorderWidth: 1.0];
+    [cell.layer setMasksToBounds:NO];
+    [cell.layer setShadowOffset:CGSizeMake(0, 1)];
+    [cell.layer setShadowColor:[[UIColor darkGrayColor] CGColor]];
+    [cell.layer setShadowRadius:14.0];
+    [cell.layer setShadowOpacity:0.5];
     [self getPictureFromImagePost:imagePost withCompletion:^(UIImage *image) {
          cell.imagePost.image = image;
      }];

@@ -79,6 +79,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtherUserCommentsCell" forIndexPath:indexPath];
     cell.textLabel.text = self.comments[indexPath.row];
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size: 18]];
     return cell;
 }
 

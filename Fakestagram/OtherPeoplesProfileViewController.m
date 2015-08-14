@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "ImagePost.h"
 #import "OtherUsersCommentsTVC.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface OtherPeoplesProfileViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HomeCollectionViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
@@ -62,14 +63,21 @@
             self.isFollowed = YES;
         } else {
             [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
-            [self.followButton setBackgroundColor:[UIColor blueColor]];
+            [self.followButton setBackgroundColor:[UIColor colorWithRed:223.0/255.0 green:82.0/255.0 blue:85.0/255.0 alpha:1.0]];
+            [self.followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            self.followButton.layer.borderWidth = 1.5;
+            self.followButton.layer.borderColor = [UIColor whiteColor].CGColor;
             self.isFollowed = NO;
         }
-
     }];
 }
 
 -(void)loadProfileImage {
+
+    CALayer *imageLayer = self.otherProfileImage.layer;
+
+    [imageLayer setCornerRadius:self.otherProfileImage.frame.size.width/2];
+    [imageLayer setMasksToBounds:YES];
 
     if ([self.user objectForKey:@"profilePhoto"]) {
 
@@ -87,8 +95,6 @@
         self.otherProfileImage.image = [UIImage imageNamed:@"seahorse.png"];
         
     }
-
-    
 }
 
 
@@ -103,7 +109,6 @@
             complete(image);
         }
     }];
-
 }
 
 
@@ -118,7 +123,10 @@
         [user saveInBackground];
         self.isFollowed = NO;
         [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
-        [self.followButton setBackgroundColor:[UIColor blueColor]];
+        [self.followButton setBackgroundColor:[UIColor colorWithRed:223.0/255.0 green:82.0/255.0 blue:85.0/255.0 alpha:1.0]];
+        [self.followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.followButton.layer.borderWidth = 1.5;
+        self.followButton.layer.borderColor = [UIColor whiteColor].CGColor;
 
 
     } else {
@@ -128,10 +136,10 @@
         [user saveInBackground];
         self.isFollowed = YES;
         [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
-        [self.followButton setBackgroundColor:[UIColor greenColor]];
+        [self.followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.followButton setBackgroundColor:[UIColor colorWithRed:104.0/255.0 green:210.0/255.0 blue:100.0/255.0 alpha:1.0]];
+        self.followButton.layer.borderWidth = 0;
     }
-
-
 }
 
 
@@ -160,6 +168,14 @@
 
         [cell.likeButton setImage:[UIImage imageNamed:@"star"] forState:UIControlStateNormal];
     }
+
+    [cell.imagePost.layer setBorderColor: [[UIColor blackColor] CGColor]];
+    [cell.imagePost.layer setBorderWidth: 1.0];
+    [cell.layer setMasksToBounds:NO];
+    [cell.layer setShadowOffset:CGSizeMake(0, 1)];
+    [cell.layer setShadowColor:[[UIColor darkGrayColor] CGColor]];
+    [cell.layer setShadowRadius:14.0];
+    [cell.layer setShadowOpacity:0.5];
 
     [self getPictureFromImagePost:imagePost withCompletion:^(UIImage *image) {
 

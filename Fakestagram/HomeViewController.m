@@ -11,6 +11,7 @@
 #import "ImagePost.h"
 #import "OtherUsersCommentsTVC.h"
 #import "OtherPeoplesProfileViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface HomeViewController ()
 
@@ -259,6 +260,7 @@
     HomeCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"feedCell" forIndexPath:indexPath];
     cell.delegate = self;
 
+
     ImagePost *imagePost = self.feedSorted[indexPath.item];
     PFUser *poster = [imagePost objectForKey:@"poster"];
 
@@ -278,6 +280,15 @@
         cell.imagePost.image = image;
 
     }];
+
+    [cell.imagePost.layer setBorderColor: [[UIColor blackColor] CGColor]];
+    [cell.imagePost.layer setBorderWidth: 1.0];
+    [cell.layer setMasksToBounds:NO];
+    [cell.layer setShadowOffset:CGSizeMake(0, 1)];
+    [cell.layer setShadowColor:[[UIColor darkGrayColor] CGColor]];
+    [cell.layer setShadowRadius:14.0];
+    [cell.layer setShadowOpacity:0.5];
+
 
     NSString *hashtag = [imagePost objectForKey:@"hashtag"];
     if (hashtag) {
@@ -300,9 +311,9 @@
 }
 
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.view.frame.size.width, self.view.frame.size.width);
-}
+//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    return CGSizeMake(self.view.frame.size.width, self.view.frame.size.width);
+//}
 
 #pragma mark - segue 
 

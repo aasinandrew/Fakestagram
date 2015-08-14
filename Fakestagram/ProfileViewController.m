@@ -51,6 +51,11 @@
 
 -(void)loadProfileImage {
 
+    CALayer *imageLayer = self.profileImage.layer;
+
+    [imageLayer setCornerRadius:self.profileImage.frame.size.width/2];
+    [imageLayer setMasksToBounds:YES];
+
     PFUser *currentUser = [PFUser currentUser];
     if ([currentUser objectForKey:@"profilePhoto"]) {
 
@@ -101,6 +106,14 @@
     cell.delegate = self;
 
     ImagePost *imagePost = self.photos[indexPath.item];
+
+    [cell.imagePost.layer setBorderColor: [[UIColor blackColor] CGColor]];
+    [cell.imagePost.layer setBorderWidth: 1.0];
+    [cell.layer setMasksToBounds:NO];
+    [cell.layer setShadowOffset:CGSizeMake(0, 1)];
+    [cell.layer setShadowColor:[[UIColor darkGrayColor] CGColor]];
+    [cell.layer setShadowRadius:14.0];
+    [cell.layer setShadowOpacity:0.5];
 
     [self getPictureFromImagePost:imagePost withCompletion:^(UIImage *image) {
         cell.imagePost.image = image;
