@@ -32,6 +32,9 @@
 
     [ImagePost registerSubclass];
 
+    [application setStatusBarHidden:NO];
+    [application setStatusBarStyle:UIStatusBarStyleLightContent];
+
     return YES;
 }
 

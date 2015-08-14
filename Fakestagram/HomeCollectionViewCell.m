@@ -10,4 +10,14 @@
 
 @implementation HomeCollectionViewCell
 
+- (IBAction)starButtonPressed:(UIButton *)sender {
+
+    UIImage *image = [self.delegate homeCollectionViewCell:self];
+    [sender setImage:image forState:UIControlStateNormal];
+}
+
+-(IBAction)moreButtonPressed:(UIButton *)sender {
+    [self.delegate homeCollectionViewCellMoreButtonPressed:self];
+}
+
 @end

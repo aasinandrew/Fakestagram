@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class ImagePost;
 @interface OtherUsersCommentsTVC : UITableViewController
+@property ImagePost *iP;
 
 @end

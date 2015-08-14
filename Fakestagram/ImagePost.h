@@ -14,4 +14,5 @@
 @property PFFile *photoFile;
 @property NSMutableArray *comments;
 
+
 @end

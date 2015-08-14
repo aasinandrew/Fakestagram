@@ -15,6 +15,7 @@
 		14A36C391B7A991400B461F0 /* OtherPeoplesProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C381B7A991400B461F0 /* OtherPeoplesProfileViewController.m */; };
 		14A36C3C1B7A9E0400B461F0 /* YourCommentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C3B1B7A9E0400B461F0 /* YourCommentsTableViewController.m */; };
 		14A36C3F1B7AA6C500B461F0 /* ImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A36C3E1B7AA6C500B461F0 /* ImagePost.m */; };
+		14E427321B7D5A5A00E2F287 /* HashtagDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E427311B7D5A5A00E2F287 /* HashtagDetailViewController.m */; };
 		BB20ADF91B794F0500077605 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB20ADF81B794F0500077605 /* main.m */; };
 		BB20ADFC1B794F0500077605 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB20ADFB1B794F0500077605 /* AppDelegate.m */; };
 		BB20ADFF1B794F0500077605 /* Fakestagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB20ADFD1B794F0500077605 /* Fakestagram.xcdatamodeld */; };
@@ -68,6 +69,8 @@
 		14A36C3B1B7A9E0400B461F0 /* YourCommentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourCommentsTableViewController.m; sourceTree = "<group>"; };
 		14A36C3D1B7AA6C500B461F0 /* ImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePost.h; sourceTree = "<group>"; };
 		14A36C3E1B7AA6C500B461F0 /* ImagePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePost.m; sourceTree = "<group>"; };
+		14E427301B7D5A5A00E2F287 /* HashtagDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashtagDetailViewController.h; sourceTree = "<group>"; };
+		14E427311B7D5A5A00E2F287 /* HashtagDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashtagDetailViewController.m; sourceTree = "<group>"; };
 		BB20ADF31B794F0500077605 /* Fakestagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fakestagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB20ADF71B794F0500077605 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB20ADF81B794F0500077605 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 		14211D861B79619D00FA4740 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				14E427301B7D5A5A00E2F287 /* HashtagDetailViewController.h */,
+				14E427311B7D5A5A00E2F287 /* HashtagDetailViewController.m */,
 				BB20AE001B794F0500077605 /* LoginViewController.h */,
 				BB20AE011B794F0500077605 /* LoginViewController.m */,
 				14211D831B79616800FA4740 /* ProfileViewController.h */,
@@ -223,9 +228,9 @@
 				BB20ADFB1B794F0500077605 /* AppDelegate.m */,
 				14211D861B79619D00FA4740 /* ViewControllers */,
 				14A36C331B7A977000B461F0 /* View */,
-				BB20AE031B794F0500077605 /* Main.storyboard */,
 				14A36C401B7AA6CC00B461F0 /* Model */,
 				BB20AE061B794F0500077605 /* Images.xcassets */,
+				BB20AE031B794F0500077605 /* Main.storyboard */,
 				BB20AE081B794F0500077605 /* LaunchScreen.xib */,
 				BB20AE1F1B794F1400077605 /* Fakestagram.entitlements */,
 				BB20ADFD1B794F0500077605 /* Fakestagram.xcdatamodeld */,
@@ -309,7 +314,7 @@
 				TargetAttributes = {
 					BB20ADF21B794F0500077605 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = S7DUM68KVK;
+						DevelopmentTeam = TD6TW3NB77;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -318,6 +323,7 @@
 					};
 					BB20AE0E1B794F0500077605 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = TD6TW3NB77;
 						TestTargetID = BB20ADF21B794F0500077605;
 					};
 				};
@@ -370,6 +376,7 @@
 				14A36C321B7A976000B461F0 /* OtherUsersCommentsTVC.m in Sources */,
 				14A36C391B7A991400B461F0 /* OtherPeoplesProfileViewController.m in Sources */,
 				14A36C3C1B7A9E0400B461F0 /* YourCommentsTableViewController.m in Sources */,
+				14E427321B7D5A5A00E2F287 /* HashtagDetailViewController.m in Sources */,
 				BB20ADFC1B794F0500077605 /* AppDelegate.m in Sources */,
 				BB20AE021B794F0500077605 /* LoginViewController.m in Sources */,
 				14A36C2F1B7A94FE00B461F0 /* HomeCollectionViewCell.m in Sources */,
@@ -436,6 +443,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -458,6 +466,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "5da50e30-2ede-4e85-a5a9-b60e13338e0f";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -494,6 +503,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "5da50e30-2ede-4e85-a5a9-b60e13338e0f";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -539,6 +549,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -550,6 +562,7 @@
 				INFOPLIST_FILE = FakestagramTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fakestagram.app/Fakestagram";
 			};
 			name = Debug;
@@ -558,6 +571,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -565,6 +580,7 @@
 				INFOPLIST_FILE = FakestagramTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fakestagram.app/Fakestagram";
 			};
 			name = Release;
