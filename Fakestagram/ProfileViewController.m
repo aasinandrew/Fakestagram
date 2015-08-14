@@ -139,9 +139,9 @@
 
 -(void)homeCollectionViewCellMoreButtonPressed:(HomeCollectionViewCell *)homeCollectionViewCell {
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"More" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Are you sure you want to delete?" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         NSIndexPath *indexPath = [self.profileCollectionView indexPathForCell:homeCollectionViewCell];
         
@@ -182,6 +182,9 @@
     }
 }
 
+
+#pragma mark - Button Method
+
 - (IBAction)editButtonPressed:(UIButton *)sender {
 
     UIAlertController *cameraAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -216,6 +219,8 @@
 
 }
 
+
+#pragma mark - Helper Method
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 

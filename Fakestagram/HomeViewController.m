@@ -47,6 +47,19 @@
     
     self.feed = [NSMutableArray new];
     self.tracker = 0;
+    
+    if (self.isNewUser) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome!" message:@"Use the search tab to find other users to follow" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
+        }];
+        
+        [alertController addAction:okAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    }
 }
 
 

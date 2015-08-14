@@ -237,7 +237,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.isSearchingHashtag) {
+    if (self.isSearchingHashtag && self.searchIsHappening) {
         [self performSegueWithIdentifier:@"searchToHashtagVC" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
     } else {
         [self performSegueWithIdentifier:@"searchToOPPVC" sender:[self.tableView cellForRowAtIndexPath:indexPath]];

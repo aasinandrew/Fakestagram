@@ -11,4 +11,8 @@
 
 @interface HomeViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HomeCollectionViewCellDelegate>
 
+
+@property BOOL isNewUser;
+
+
 @end

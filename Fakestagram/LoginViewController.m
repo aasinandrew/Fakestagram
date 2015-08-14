@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
 #import <QuartzCore/QuartzCore.h>
+#import "HomeViewController.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *signupButton;
+@property BOOL isNewUser;
 
 
 @end
@@ -45,6 +47,7 @@
 -(void)authenticateUser {
     PFUser *user = [PFUser currentUser];
     if ([user isAuthenticated]) {
+        self.isNewUser = NO;
         [self performSegueWithIdentifier:@"login" sender:self];
     }
 }
@@ -82,7 +85,9 @@
     [PFUser logInWithUsernameInBackground:self.userNameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
 
         if (user != nil) {
+             self.isNewUser = NO;
             [self performSegueWithIdentifier:@"login" sender:self];
+           
         } else {
             [self showErrorMessage:error];
 
@@ -99,7 +104,24 @@
     user.username = self.userNameTextField.text;
     user.password = self.passwordTextField.text;
 
-    [user signUpInBackground];
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            
+            [PFUser logInWithUsernameInBackground:self.userNameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
+                
+                if (user != nil) {
+                    self.isNewUser = YES;
+                    [self performSegueWithIdentifier:@"login" sender:self];
+                } else {
+                    [self showErrorMessage:error];
+                    
+                }
+            }];
+        }
+    }];
+    
+    
+    
 }
 
 
@@ -109,20 +131,19 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
-    [PFUser logInWithUsernameInBackground:self.userNameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
-        
-        if (user != nil) {
-            [self performSegueWithIdentifier:@"login" sender:self];
-        } else {
-            [self showErrorMessage:error];
-            
-        }
-    }];
-    
     return NO;
 }
 
 #pragma mark - Segue 
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UITabBarController *vc = segue.destinationViewController;
+    UINavigationController *nextVC = [vc.viewControllers objectAtIndex:0];
+    HomeViewController *finalVC = (HomeViewController *)nextVC.topViewController;
+    
+    finalVC.isNewUser = self.isNewUser;
+    
+}
 
 -(IBAction)unWindToLogin:(UIStoryboardSegue *)segue {
     [PFUser logOut];
