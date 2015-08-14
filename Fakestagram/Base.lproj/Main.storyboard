@@ -403,12 +403,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="feedCollectionView" destination="KVd-nJ-oSP" id="3e9-SJ-BEN"/>
-                        <segue destination="OTS-Ia-9Mv" kind="push" identifier="UploadPictureToProfile" id="iwy-Lq-d6g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61b-2f-PTk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2045" y="-317"/>
+            <point key="canvasLocation" x="2045" y="-279"/>
         </scene>
         <!--Comments-->
         <scene sceneID="P8P-wA-iM7">
@@ -447,6 +446,7 @@
         <scene sceneID="06j-PS-sc5">
             <objects>
                 <tabBarController id="5m1-Ak-mpw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Cl0-cp-80l"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Rve-cJ-4zK">
@@ -685,6 +685,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gWw-JS-63a" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="contacts" id="9Kc-FW-2Uc"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="JSr-WG-Wbu"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="neR-mm-h91">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -875,6 +876,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="dPS-bm-D6y"/>
         <segue reference="czk-gB-Asc"/>
-        <segue reference="iwy-Lq-d6g"/>
     </inferredMetricsTieBreakers>
 </document>

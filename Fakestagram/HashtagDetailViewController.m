@@ -50,7 +50,7 @@
 
     PFUser *user = [imagePost objectForKey:@"poster"];
     cell.labelForUserName.text = user.username;
-    cell.hashtag.text = [imagePost objectForKey:@"hashtag"];
+    cell.hashtag.text = [NSString stringWithFormat:@"#%@", [imagePost objectForKey:@"hashtag"] ];
 
     [cell.imagePost.layer setBorderColor: [[UIColor blackColor] CGColor]];
     [cell.imagePost.layer setBorderWidth: 1.0];

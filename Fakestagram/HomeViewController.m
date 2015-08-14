@@ -202,17 +202,19 @@
                     [hashtag setObject:hashtagText forKey:@"hashtag"];
                     [hashtag saveInBackground];
                 }
+                
+                imagePost.hashtag = hashtagText;
 
-                [imagePost setObject:hashtagText forKey:@"hashtag"];
+                //[self performSegueWithIdentifier:@"UploadPictureToProfile" sender:self];
 
-                [self performSegueWithIdentifier:@"UploadPictureToProfile" sender:self];
-
-                [imagePost setObject:[PFUser currentUser] forKey:@"poster"];
+                imagePost.poster = [PFUser currentUser];
 
 
                 [imagePost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
 
                     if (succeeded) {
+                        
+                         [self.tabBarController setSelectedIndex:2];
 
                     }
                 }];
@@ -269,7 +271,7 @@
 
     if ([usersWhoLiked containsObject:[PFUser currentUser]]) {
         [usersWhoLiked removeObject:[PFUser currentUser]];
-        [imagePost setObject:usersWhoLiked forKey:@"usersWhoLiked"];
+        imagePost.usersWhoLiked = usersWhoLiked;
         [imagePost saveInBackground];
 
         return [UIImage imageNamed:@"star"];
@@ -277,7 +279,7 @@
     } else {
 
         [usersWhoLiked addObject:[PFUser currentUser]];
-        [imagePost setObject:usersWhoLiked forKey:@"usersWhoLiked"];
+        imagePost.usersWhoLiked = usersWhoLiked;
         [imagePost saveInBackground];
 
         return [UIImage imageNamed:@"Star-filled"];
@@ -293,9 +295,9 @@
 
 
     ImagePost *imagePost = self.feedSorted[indexPath.item];
-    PFUser *poster = [imagePost objectForKey:@"poster"];
+    PFUser *poster = imagePost.poster;
 
-    NSMutableArray * usersWhoLiked = [imagePost objectForKey:@"usersWhoLiked"] ?: [NSMutableArray new];
+    NSMutableArray * usersWhoLiked = imagePost.usersWhoLiked ?: [NSMutableArray new];
 
     if ([usersWhoLiked containsObject:[PFUser currentUser]]) {
         [cell.likeButton setImage:[UIImage imageNamed:@"Star-filled"] forState:UIControlStateNormal];
@@ -321,7 +323,7 @@
     [cell.layer setShadowOpacity:0.5];
 
 
-    NSString *hashtag = [imagePost objectForKey:@"hashtag"];
+    NSString *hashtag = imagePost.hashtag;
     if (hashtag) {
 
         if ([hashtag hasPrefix:@"#"] || [hashtag isEqualToString:@""] ) {
@@ -360,11 +362,15 @@
         NSIndexPath *indexPath = [self.feedCollectionView indexPathForCell:(UICollectionViewCell *)[[sender superview] superview]];
         ImagePost *imagePost = self.feedSorted[indexPath.item];
 
-        vc.user = [imagePost objectForKey:@"poster"];
+        vc.user = imagePost.poster;
 
-
+    } else if ([segue.identifier isEqualToString:@"UploadPictureToProfile"]) {
+        //UITabBarController *vc = segue.destinationViewController;
+       // vc.selectedViewController = [vc.viewControllers objectAtIndex:2];
+//        [self.tabBarController setSelectedIndex:2];
+       // [vc setSelectedIndex:2];
     }
-    
+
 }
 
 @end

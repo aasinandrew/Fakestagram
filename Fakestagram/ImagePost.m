@@ -13,6 +13,9 @@
 
 @dynamic photoFile;
 @dynamic comments;
+@dynamic poster;
+@dynamic hashtag;
+@dynamic usersWhoLiked;
 
 
 +(void) load {

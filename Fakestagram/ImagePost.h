@@ -13,6 +13,9 @@
 
 @property PFFile *photoFile;
 @property NSMutableArray *comments;
+@property PFUser *poster;
+@property NSString *hashtag;
+@property NSMutableArray *usersWhoLiked;
 
 
 @end
