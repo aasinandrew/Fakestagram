@@ -60,6 +60,7 @@
 
         if ([objects containsObject:self.user]) {
             [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
+            [self.followButton setBackgroundColor:[UIColor colorWithRed:104.0/255.0 green:210.0/255.0 blue:100.0/255.0 alpha:1.0]];
             self.isFollowed = YES;
         } else {
             [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
@@ -162,7 +163,7 @@
     NSMutableArray *usersWhoLiked = [imagePost objectForKey:@"usersWhoLiked"] ?: [NSMutableArray new];
 
     if ([usersWhoLiked containsObject:[PFUser currentUser]]) {
-        [cell.likeButton setImage:[UIImage imageNamed:@"star-filled"] forState:UIControlStateNormal];
+        [cell.likeButton setImage:[UIImage imageNamed:@"Star-filled"] forState:UIControlStateNormal];
 
     } else {
 
@@ -220,7 +221,7 @@
         [imagePost setObject:usersWhoLiked forKey:@"usersWhoLiked"];
         [imagePost saveInBackground];
 
-        return [UIImage imageNamed:@"star-filled"];
+        return [UIImage imageNamed:@"Star-filled"];
     }
 }
 

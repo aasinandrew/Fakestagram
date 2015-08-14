@@ -280,7 +280,7 @@
         [imagePost setObject:usersWhoLiked forKey:@"usersWhoLiked"];
         [imagePost saveInBackground];
 
-        return [UIImage imageNamed:@"star-filled"];
+        return [UIImage imageNamed:@"Star-filled"];
     }
 }
 
@@ -298,7 +298,7 @@
     NSMutableArray * usersWhoLiked = [imagePost objectForKey:@"usersWhoLiked"] ?: [NSMutableArray new];
 
     if ([usersWhoLiked containsObject:[PFUser currentUser]]) {
-        [cell.likeButton setImage:[UIImage imageNamed:@"star-filled"] forState:UIControlStateNormal];
+        [cell.likeButton setImage:[UIImage imageNamed:@"Star-filled"] forState:UIControlStateNormal];
 
     } else {
 

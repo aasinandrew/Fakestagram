@@ -812,13 +812,12 @@
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMB-8m-G0W">
                                 <rect key="frame" x="113" y="82" width="95" height="30"/>
-                                <color key="backgroundColor" red="0.4063768498" green="0.82408506010000004" blue="0.39072403890000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="95" id="1MW-bz-GVS"/>
                                     <constraint firstAttribute="height" constant="30" id="c2k-tB-QOC"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Following">
+                                <state key="normal">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -874,8 +873,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="iwy-Lq-d6g"/>
-        <segue reference="czk-gB-Asc"/>
         <segue reference="dPS-bm-D6y"/>
+        <segue reference="czk-gB-Asc"/>
+        <segue reference="iwy-Lq-d6g"/>
     </inferredMetricsTieBreakers>
 </document>

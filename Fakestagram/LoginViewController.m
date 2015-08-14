@@ -117,6 +117,17 @@
                     
                 }
             }];
+        } else {
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:[NSString stringWithFormat:@"There can only be one %@", self.userNameTextField.text] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok 😭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                
+            }];
+            
+            [alertController addAction:ok];
+            [self presentViewController:alertController animated:YES completion:nil];
+            
         }
     }];
     
