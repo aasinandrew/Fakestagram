@@ -19,8 +19,8 @@
 @property (nonatomic) NSArray *filteredResults;
 @property NSMutableArray *users;
 @property BOOL searchIsHappening;
-@property NSArray *allImagePosts;
-@property (nonatomic) NSArray *filteredImagePosts;
+@property NSArray *allHashtags;
+@property (nonatomic) NSArray *filteredHashtags;
 @property BOOL isSearchingHashtag;
 
 
@@ -102,10 +102,10 @@
 -(void)loadHashtags {
 
 
-    PFQuery *query = [PFQuery queryWithClassName:@"ImagePost"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Hashtag"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
-        self.allImagePosts = objects;
+        self.allHashtags = objects;
     }];
 
     self.isSearchingHashtag = NO;
@@ -118,7 +118,6 @@
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
-//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.searchBar.scopeButtonTitles = @[@"Users", @"Hashtag"];
     [self.searchController.searchBar setTintColor:[UIColor colorWithRed:223.0/255.0 green:82.0/255.0 blue:85.0/255.0 alpha:1.0]];
@@ -155,7 +154,7 @@
         self.filteredResults = [self.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"username contains[c] %@", searchString]];
         self.isSearchingHashtag = NO;
     } else {
-        self.filteredImagePosts = [self.allImagePosts filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hashtag contains[c] %@", searchString]];
+        self.filteredHashtags = [self.allHashtags filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"hashtag contains[c] %@", searchString]];
         self.isSearchingHashtag = YES;
     }
 
@@ -168,8 +167,8 @@
     [self.tableView reloadData];
 }
 
--(void)setFilteredImagePosts:(NSArray *)filteredImagePosts {
-    _filteredImagePosts = filteredImagePosts;
+-(void)setFilteredHashtags:(NSArray *)filteredHashtags {
+    _filteredHashtags = filteredHashtags;
     [self.tableView reloadData];
 }
 
@@ -197,7 +196,7 @@
     } else if (self.searchIsHappening && !self.isSearchingHashtag){
         return self.filteredResults.count;
     } else {
-        return self.filteredImagePosts.count;
+        return self.filteredHashtags.count;
     }
 
 }
@@ -215,9 +214,9 @@
         cell.textLabel.text = userFiltered.username;
         [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size: 18]];
     } else {
-        ImagePost *post = self.filteredImagePosts[indexPath.row];
-        NSString *hashtag = [post objectForKey:@"hashtag"];
-
+        //ImagePost *post = self.filteredImagePosts[indexPath.row];
+        PFObject *hashtagObject = self.filteredHashtags[indexPath.row];
+        NSString *hashtag = [hashtagObject objectForKey:@"hashtag"];
         if ([hashtag hasPrefix:@"#"] || [hashtag isEqualToString:@""] ) {
                 cell.textLabel.text = hashtag;
         } else {
@@ -261,8 +260,9 @@
     } else {
         HashtagDetailViewController *vc2 = segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        ImagePost *imagePost = self.filteredImagePosts[indexPath.row];
-        vc2.hashtag = [imagePost objectForKey:@"hashtag"];
+        //ImagePost *imagePost = self.filteredImagePosts[indexPath.row];
+        PFObject *hashtag = self.filteredHashtags[indexPath.row];
+        vc2.hashtag = [hashtag objectForKey:@"hashtag"];
 
     }
 

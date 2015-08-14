@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *feedCollectionView;
 
 @property NSArray *feedSorted;
+@property NSMutableArray *hashtags;
 @property NSMutableArray *feed;
 @property int tracker;
 
@@ -50,6 +51,15 @@
 
 
 -(void)resetFeed {
+    self.hashtags = [NSMutableArray new];
+    PFQuery *hashtagQuery = [PFQuery queryWithClassName:@"Hashtag"];
+    [hashtagQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for (PFObject *hashtag in objects) {
+            NSString *hashtagText = [hashtag objectForKey:@"hashtag"];
+            [self.hashtags addObject:hashtagText];
+        }
+    }];
+
     [self.feed removeAllObjects];
     PFUser *user = [PFUser currentUser];
 
@@ -171,7 +181,15 @@
             UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 
                 UITextField *hashtagTextField = [alert textFields].firstObject;
-                NSString *hashtagText = [hashtagTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+                NSString *hashtagText = [[[hashtagTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"#" withString:@""] lowercaseString];
+
+                if (![self.hashtags containsObject:hashtagText]) {
+                    PFObject *hashtag = [PFObject objectWithClassName:@"Hashtag"];
+                    [hashtag setObject:hashtagText forKey:@"hashtag"];
+                    [hashtag saveInBackground];
+                }
+
                 [imagePost setObject:hashtagText forKey:@"hashtag"];
 
                 [self performSegueWithIdentifier:@"UploadPictureToProfile" sender:self];
