@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface LoginViewController ()
+@interface LoginViewController () <UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
@@ -102,6 +102,25 @@
     [user signUpInBackground];
 }
 
+
+
+#pragma mark - textField Delegate 
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    [PFUser logInWithUsernameInBackground:self.userNameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
+        
+        if (user != nil) {
+            [self performSegueWithIdentifier:@"login" sender:self];
+        } else {
+            [self showErrorMessage:error];
+            
+        }
+    }];
+    
+    return NO;
+}
 
 #pragma mark - Segue 
 

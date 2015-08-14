@@ -117,10 +117,11 @@
 
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
+    [self.searchController.searchBar sizeToFit];
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.tableHeaderView = self.searchController.searchBar;
     self.searchController.searchBar.scopeButtonTitles = @[@"Users", @"Hashtag"];
-    [self.searchController.searchBar sizeToFit];
+ 
 
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
