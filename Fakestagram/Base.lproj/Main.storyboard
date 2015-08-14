@@ -395,7 +395,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Feed" id="eZL-L1-zMl">
-                        <barButtonItem key="rightBarButtonItem" image="camera" id="7jp-WL-iDS">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="7jp-WL-iDS">
                             <connections>
                                 <action selector="uploadButtonPressed:" destination="bIm-Pk-LQH" id="iWI-dx-9qF"/>
                             </connections>
@@ -817,7 +817,7 @@
                                     <constraint firstAttribute="width" constant="95" id="1MW-bz-GVS"/>
                                     <constraint firstAttribute="height" constant="30" id="c2k-tB-QOC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Following">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -861,7 +861,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera" width="25" height="25"/>
         <image name="contacts" width="25" height="25"/>
         <image name="fakelogo" width="946" height="944"/>
         <image name="home" width="26" height="26"/>
@@ -875,8 +874,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gMm-Zx-Nh9"/>
         <segue reference="czk-gB-Asc"/>
+        <segue reference="iwy-Lq-d6g"/>
         <segue reference="rYU-mu-gpp"/>
     </inferredMetricsTieBreakers>
 </document>
